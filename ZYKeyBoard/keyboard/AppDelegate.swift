@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  ZYKeyboard
+//  keyboard
 //
-//  Created by leeey on 14/8/31.
+//  Created by leeey on 14/8/26.
 //  Copyright (c) 2014年 leeey. All rights reserved.
 //
 
@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         // Override point for customization after application launch.
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        var view = ViewController()
+        self.window!.rootViewController = view
+        self.window!.makeKeyAndVisible()
         return true
     }
 

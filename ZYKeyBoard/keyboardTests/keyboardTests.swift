@@ -1,15 +1,15 @@
 //
-//  ZYKeyboardTests.swift
-//  ZYKeyboardTests
+//  keyboardTests.swift
+//  keyboardTests
 //
-//  Created by leeey on 14/8/31.
+//  Created by leeey on 14/8/26.
 //  Copyright (c) 2014年 leeey. All rights reserved.
 //
 
 import UIKit
 import XCTest
 
-class ZYKeyboardTests: XCTestCase {
+class keyboardTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
