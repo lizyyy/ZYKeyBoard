@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+
 protocol ZYKeyboardDelegate {
     func done()
 }
@@ -41,7 +42,7 @@ class ZYKeyboard : UIView {
     }
     
     func output(value: Double) {
-        txtResult?.text = String(format: "%.15g", value)
+        txtResult?.text = String(format: "%.12g", value)
     }
     
     func updateResult() {
@@ -122,52 +123,53 @@ class ZYKeyboard : UIView {
         }
         
         var operand = UIButton(frame: CGRectMake(shape["w"]!*3+3, shape["h"]!*3+4, shape["w"]!+1 ,shape["h"]!))
-        operand.backgroundColor = UIColor.whiteColor();
         operand.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside);
-        operand.titleLabel.font = UIFont.boldSystemFontOfSize(25)
-        operand.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
+        operand.titleLabel.font = UIFont.boldSystemFontOfSize(24)
         operand.setTitle("=",forState:.Normal);
+        btnColor(operand)
         self.addSubview(operand)
         
         var add = UIButton(frame: CGRectMake(shape["w"]!*3+3, shape["h"]!*1+2, shape["w"]!+1 ,shape["h"]!))
-        add.backgroundColor = UIColor.whiteColor();
         add.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside);
         add.titleLabel.font = UIFont.boldSystemFontOfSize(22)
-        add.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         add.setTitle("+",forState:.Normal);
+        btnColor(add)
         self.addSubview(add)
         
         var sub = UIButton(frame: CGRectMake(shape["w"]!*3+3, shape["h"]!*2+3, shape["w"]!+1 ,shape["h"]!))
-        sub.backgroundColor = UIColor.whiteColor();
         sub.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside);
         sub.titleLabel.font = UIFont.boldSystemFontOfSize(22)
-        sub.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         sub.setTitle("-",forState:.Normal);
+        btnColor(sub)
         self.addSubview(sub)
         
         var done = UIButton(frame: CGRectMake(shape["w"]!*3+3, shape["h"]!*0+1, shape["w"]!+1 ,shape["h"]!))
-        done.backgroundColor = UIColor.whiteColor();
         done.addTarget(self,action:"done:",forControlEvents:.TouchUpInside);
         done.titleLabel.font = UIFont.boldSystemFontOfSize(18)
-        done.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         done.setTitle("☒",forState:.Normal);
+        btnColor(done)
         self.addSubview(done)
         
         var btc = UIButton(frame: CGRectMake(shape["w"]!*0, shape["h"]!*3+4, shape["w"]! ,shape["h"]!))
-        btc.backgroundColor = UIColor.whiteColor();
         btc.addTarget(self,action:"btnClear:",forControlEvents:.TouchUpInside);
         btc.titleLabel.font = UIFont.boldSystemFontOfSize(16)
-        btc.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         btc.setTitle("C",forState:.Normal);
+        btnColor(btc)
         self.addSubview(btc)
         
         var btp = UIButton(frame: CGRectMake(shape["w"]!*2+2, shape["h"]!*3+4, shape["w"]! ,shape["h"]!))
-        btp.backgroundColor = UIColor.whiteColor();
         btp.addTarget(self,action:"btnPercent:",forControlEvents:.TouchUpInside);
         btp.titleLabel.font = UIFont.boldSystemFontOfSize(18)
-        btp.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         btp.setTitle(".",forState:.Normal);
+        btnColor(btp)
         self.addSubview(btp)
+    }
+    
+    func btnColor(button:UIButton){
+        button.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
+        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
+        button.setBackgroundImage(createImageWithColor(UIColor.whiteColor()), forState: UIControlState.Normal)
+        button.setBackgroundImage(createImageWithColor(UIColor.grayColor()), forState: UIControlState.Highlighted)
     }
     
     func numBtn(number:String)->UIButton {
@@ -184,22 +186,12 @@ class ZYKeyboard : UIView {
         }
         button.addTarget(self,action:"btnNumber:",forControlEvents:.TouchUpInside);
         button.titleLabel.font = UIFont.boldSystemFontOfSize(18)
-        button.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         button.setTitle(number,forState:.Normal);
-        button.backgroundColor = UIColor.whiteColor();
+        btnColor(button)
         return button
     }
     
     func done( sender: UIButton ){
         delegate?.done()
-    }
-}
-
-extension UIColor {
-    convenience init(hex: Int, alpha: CGFloat = 1.0) {
-        let red = CGFloat((hex & 0xFF0000) >> 16) / 255.0
-        let green = CGFloat((hex & 0xFF00) >> 8) / 255.0
-        let blue = CGFloat((hex & 0xFF)) / 255.0
-        self.init(red:red, green:green, blue:blue, alpha:alpha)
     }
 }

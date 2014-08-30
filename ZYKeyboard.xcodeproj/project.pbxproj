@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18AAC09619B2713600899202 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AAC09519B2713600899202 /* Extension.swift */; };
 		18F322C019B25E95002D744C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F322BF19B25E95002D744C /* AppDelegate.swift */; };
 		18F322C219B25E95002D744C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F322C119B25E95002D744C /* ViewController.swift */; };
 		18F322C719B25E95002D744C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18F322C619B25E95002D744C /* Images.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18AAC09519B2713600899202 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		18F322BA19B25E95002D744C /* ZYKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZYKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F322BE19B25E95002D744C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18F322BF19B25E95002D744C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		18F322BC19B25E95002D744C /* ZYKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				18AAC09519B2713600899202 /* Extension.swift */,
 				18F322DC19B2606D002D744C /* ZYKeyboard.swift */,
 				18F322BF19B25E95002D744C /* AppDelegate.swift */,
 				18F322C119B25E95002D744C /* ViewController.swift */,
@@ -210,6 +213,7 @@
 				18F322C219B25E95002D744C /* ViewController.swift in Sources */,
 				18F322C019B25E95002D744C /* AppDelegate.swift in Sources */,
 				18F322DD19B2606D002D744C /* ZYKeyboard.swift in Sources */,
+				18AAC09619B2713600899202 /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
