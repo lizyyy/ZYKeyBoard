@@ -1,5 +1,7 @@
 ZYKeyBoard
 ==========
+# ReadMe
+**Mail：lizyyy@gmail.com**  
 
 swift 自定义价格键盘，支持加法计算，带小数点
 
