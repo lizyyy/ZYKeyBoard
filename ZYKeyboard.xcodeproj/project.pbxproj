@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		18F322C019B25E95002D744C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F322BF19B25E95002D744C /* AppDelegate.swift */; };
 		18F322C219B25E95002D744C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F322C119B25E95002D744C /* ViewController.swift */; };
-		18F322C519B25E95002D744C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18F322C319B25E95002D744C /* Main.storyboard */; };
 		18F322C719B25E95002D744C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18F322C619B25E95002D744C /* Images.xcassets */; };
 		18F322D319B25E96002D744C /* ZYKeyboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F322D219B25E96002D744C /* ZYKeyboardTests.swift */; };
+		18F322DD19B2606D002D744C /* ZYKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F322DC19B2606D002D744C /* ZYKeyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,11 +29,11 @@
 		18F322BE19B25E95002D744C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18F322BF19B25E95002D744C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18F322C119B25E95002D744C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		18F322C419B25E95002D744C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18F322C619B25E95002D744C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		18F322CC19B25E96002D744C /* ZYKeyboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZYKeyboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F322D119B25E96002D744C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18F322D219B25E96002D744C /* ZYKeyboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZYKeyboardTests.swift; sourceTree = "<group>"; };
+		18F322DC19B2606D002D744C /* ZYKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZYKeyboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,9 +75,9 @@
 		18F322BC19B25E95002D744C /* ZYKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				18F322DC19B2606D002D744C /* ZYKeyboard.swift */,
 				18F322BF19B25E95002D744C /* AppDelegate.swift */,
 				18F322C119B25E95002D744C /* ViewController.swift */,
-				18F322C319B25E95002D744C /* Main.storyboard */,
 				18F322C619B25E95002D744C /* Images.xcassets */,
 				18F322BD19B25E95002D744C /* Supporting Files */,
 			);
@@ -189,7 +189,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18F322C519B25E95002D744C /* Main.storyboard in Resources */,
 				18F322C719B25E95002D744C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +209,7 @@
 			files = (
 				18F322C219B25E95002D744C /* ViewController.swift in Sources */,
 				18F322C019B25E95002D744C /* AppDelegate.swift in Sources */,
+				18F322DD19B2606D002D744C /* ZYKeyboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,17 +230,6 @@
 			targetProxy = 18F322CD19B25E96002D744C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		18F322C319B25E95002D744C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				18F322C419B25E95002D744C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		18F322D419B25E96002D744C /* Debug */ = {
@@ -395,6 +384,7 @@
 				18F322D819B25E96002D744C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18F322D919B25E96002D744C /* Build configuration list for PBXNativeTarget "ZYKeyboardTests" */ = {
 			isa = XCConfigurationList;
@@ -403,6 +393,7 @@
 				18F322DB19B25E96002D744C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
