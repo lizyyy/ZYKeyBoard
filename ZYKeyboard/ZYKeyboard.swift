@@ -24,7 +24,7 @@ class ZYKeyboard : UIView {
     var argument: Double = 0
     var start: Bool = true
     var shape:[String:CGFloat] = ["w":79.00,"h":53.00]
-    
+    var isAlert =  false
     
     enum Operand {
         case Add //+
@@ -42,6 +42,7 @@ class ZYKeyboard : UIView {
     }
     
     func output(value: Double) {
+        if !check(value){ return }
         txtResult?.text = String(format: "%.12g", value)
     }
     
@@ -92,10 +93,19 @@ class ZYKeyboard : UIView {
         operand = nil
         updateResult()
     }
+
+    func check(number:Double)->Bool{
+        if number >= 1000000 || number < 0 {
+            shine()
+            return false
+        }
+        return true
+    }
     
     func btnOperand(sender: UIButton) {
         if operand != nil {
             result = calc(result, withOp: operand!, andArg: argument)
+            if !check(result){ return}
             output(result)
         }
         decimalPos = 1
@@ -191,7 +201,35 @@ class ZYKeyboard : UIView {
         return button
     }
     
+    func shine() {
+        UIView.animateWithDuration(0.2, animations: { self.alphaup()
+            }, completion: {
+                (Bool completion) in
+                if completion {
+                    self.alphaDown()
+                    UIView.animateWithDuration(0.1, animations: { self.alphaup()
+                        }, completion: {
+                            (Bool completion) in
+                            if completion {
+                                self.alphaDown()
+                            }
+                    })
+                }
+        })
+    }
+    
+    func alphaup(){
+        self.txtResult?.alpha = 0
+    }
+    
+    func alphaDown(){
+        self.txtResult?.alpha = 1
+    }
+    
     func done( sender: UIButton ){
         delegate?.done()
     }
+    
+    
+  
 }

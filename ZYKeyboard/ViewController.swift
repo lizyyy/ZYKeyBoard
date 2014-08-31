@@ -14,11 +14,7 @@ class ViewController: UIViewController,ZYKeyboardDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
         self.view.backgroundColor = UIColor.whiteColor()
-        
         money.attributedPlaceholder = NSAttributedString(  string: "0.00",attributes: [NSForegroundColorAttributeName: UIColor(hex:0x5eb420,alpha:1)])
         money.textColor = UIColor(hex:0x5eb420,alpha:1)
         var zykeyboard = ZYKeyboard(frame: CGRectMake(0,  480 - 44 - 216, 320, 216))
@@ -28,15 +24,11 @@ class ViewController: UIViewController,ZYKeyboardDelegate {
         money.font = UIFont.boldSystemFontOfSize(40)
         money.becomeFirstResponder()
         self.view.addSubview(money)
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     func done(){
         money .resignFirstResponder()
     }
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
