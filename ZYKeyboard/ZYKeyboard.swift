@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 protocol ZYKeyboardDelegate {
     func done()
 }
@@ -42,7 +41,11 @@ class ZYKeyboard : UIView {
     }
     
     func output(value: Double) {
-        if !check(value){ return }
+        if !check(value){
+            btnClear()
+            txtResult?.text = "0"
+            return
+        }
         txtResult?.text = String(format: "%.12g", value)
     }
     
@@ -69,7 +72,6 @@ class ZYKeyboard : UIView {
         }
     }
     
-    
     func btnNumber(sender: UIButton!){
         let input = Double(sender.titleLabel.text.toInt()!)
         if start {
@@ -85,7 +87,7 @@ class ZYKeyboard : UIView {
         updateResult()
     }
     
-    func btnClear(sender: UIButton) {
+    func btnClear() {
         result = 0
         argument = 0
         decimalPos = 1
@@ -105,8 +107,8 @@ class ZYKeyboard : UIView {
     func btnOperand(sender: UIButton) {
         if operand != nil {
             result = calc(result, withOp: operand!, andArg: argument)
-            if !check(result){ return}
             output(result)
+     
         }
         decimalPos = 1
         decimals = false
@@ -161,7 +163,7 @@ class ZYKeyboard : UIView {
         self.addSubview(done)
         
         var btc = UIButton(frame: CGRectMake(shape["w"]!*0, shape["h"]!*3+4, shape["w"]! ,shape["h"]!))
-        btc.addTarget(self,action:"btnClear:",forControlEvents:.TouchUpInside);
+        btc.addTarget(self,action:"btnClear",forControlEvents:.TouchUpInside);
         btc.titleLabel.font = UIFont.boldSystemFontOfSize(16)
         btc.setTitle("C",forState:.Normal);
         btnColor(btc)
@@ -229,7 +231,4 @@ class ZYKeyboard : UIView {
     func done( sender: UIButton ){
         delegate?.done()
     }
-    
-    
-  
 }
