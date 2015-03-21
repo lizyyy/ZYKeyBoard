@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 protocol ZYKeyboardDelegate {
-    func done()
+    func closekeyboard()
+    
 }
 
 class ZYKeyboard : UIView {
@@ -22,7 +23,7 @@ class ZYKeyboard : UIView {
     var operand: Operand?
     var argument: Double = 0
     var start: Bool = true
-    var shape:[String:CGFloat] = ["w":79.00,"h":53.00]
+    var shape:[String:CGFloat] = ["w":MYWIDTH()/4-1,"h":62.00]
     var isAlert =  false
     
     enum Operand {
@@ -43,10 +44,10 @@ class ZYKeyboard : UIView {
     func output(value: Double) {
         if !check(value){
             btnClear()
-            txtResult?.text = "0"
+            txtResult?.text = "￥0.00"
             return
         }
-        txtResult?.text = String(format: "%.12g", value)
+        txtResult?.text = String(format: "￥%.12g", value)
     }
     
     func updateResult() {
@@ -73,7 +74,8 @@ class ZYKeyboard : UIView {
     }
     
     func btnNumber(sender: UIButton!){
-        let input = Double(sender.titleLabel.text.toInt()!)
+        let inputInt = sender.titleLabel?.text?.toInt() //(sender.titleLabel?.text?.toInt()!)
+        let input = Double(inputInt!)
         if start {
             result = input
             start = false
@@ -95,9 +97,9 @@ class ZYKeyboard : UIView {
         operand = nil
         updateResult()
     }
-
+    
     func check(number:Double)->Bool{
-        if number >= 1000000 || number < 0 {
+        if number >= 100000000 || number < 0 {
             shine()
             return false
         }
@@ -108,15 +110,15 @@ class ZYKeyboard : UIView {
         if operand != nil {
             result = calc(result, withOp: operand!, andArg: argument)
             output(result)
-     
+            
         }
         decimalPos = 1
         decimals = false
         argument = 0
         start = false
-        if sender.titleLabel.text == "+" {
+        if sender.titleLabel?.text == "+" {
             operand = .Add
-        } else if sender.titleLabel.text == "-" {
+        } else if sender.titleLabel?.text == "-" {
             operand = .Sub
         }else {
             operand = nil
@@ -130,77 +132,57 @@ class ZYKeyboard : UIView {
     }
     
     func keyboardView(){
-        for i in 0...9 {
-            self.addSubview(numBtn(String(i)))
+        var w = MYWIDTH()
+        var h = 252
+        var borderH = 1
+        var borderW = 1
+        var btnW =  ( Float(w) - Float( borderW * 5) ) / Float(4)
+        var btnH =  ( Float(h) - Float( borderH * 5) ) / Float(4)
+        for i in 1 ... 16 {
+            var line  = ( i - 1 ) % 4
+            var row = ( i - 1 ) / 4
+            var xx = Double(btnW) * Double(line) + Double(borderW) * ( Double(line) + 1)
+            var yy = Double(btnH) * Double(row) + Double(borderH) * ( Double(row) + 1 )
+            var btn = UIButton( frame: CGRectMake(CGFloat(xx), CGFloat(yy) , CGFloat(btnW), CGFloat(btnH)) )
+            btn.titleLabel?.font = UIFont.systemFontOfSize(20)
+            btn.setTitle("\(xx),\(yy)",forState:.Normal);
+            switch i {
+            case 4:
+                btn.setTitle("☒",forState:.Normal)
+                btn.addTarget(self,action:"closekeyboard:",forControlEvents:.TouchUpInside)
+            case 8:
+                btn.setTitle("+",forState:.Normal)
+                btn.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside)
+            case 12:
+                btn.setTitle("-",forState:.Normal)
+                btn.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside)
+            case 16:
+                btn.setTitle("=",forState:.Normal)
+                btn.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside)
+            case 13:
+                btn.setTitle("C",forState:.Normal)
+                btn.addTarget(self,action:"btnClear",forControlEvents:.TouchUpInside)
+            case 14:
+                btn.setTitle("0",forState:.Normal)
+                btn.addTarget(self,action:"btnNumber:",forControlEvents:.TouchUpInside)
+            case 15:
+                btn.setTitle(".",forState:.Normal)
+                btn.addTarget(self,action:"btnPercent:",forControlEvents:.TouchUpInside)
+            default:
+                btn.setTitle(String((row)*3+line+1),forState:.Normal)
+                btn.addTarget(self,action:"btnNumber:",forControlEvents:.TouchUpInside)
+            }
+            btnColor(btn)
+            self.addSubview(btn)
         }
-        
-        var operand = UIButton(frame: CGRectMake(shape["w"]!*3+3, shape["h"]!*3+4, shape["w"]!+1 ,shape["h"]!))
-        operand.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside);
-        operand.titleLabel.font = UIFont.boldSystemFontOfSize(24)
-        operand.setTitle("=",forState:.Normal);
-        btnColor(operand)
-        self.addSubview(operand)
-        
-        var add = UIButton(frame: CGRectMake(shape["w"]!*3+3, shape["h"]!*1+2, shape["w"]!+1 ,shape["h"]!))
-        add.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside);
-        add.titleLabel.font = UIFont.boldSystemFontOfSize(22)
-        add.setTitle("+",forState:.Normal);
-        btnColor(add)
-        self.addSubview(add)
-        
-        var sub = UIButton(frame: CGRectMake(shape["w"]!*3+3, shape["h"]!*2+3, shape["w"]!+1 ,shape["h"]!))
-        sub.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside);
-        sub.titleLabel.font = UIFont.boldSystemFontOfSize(22)
-        sub.setTitle("-",forState:.Normal);
-        btnColor(sub)
-        self.addSubview(sub)
-        
-        var done = UIButton(frame: CGRectMake(shape["w"]!*3+3, shape["h"]!*0+1, shape["w"]!+1 ,shape["h"]!))
-        done.addTarget(self,action:"done:",forControlEvents:.TouchUpInside);
-        done.titleLabel.font = UIFont.boldSystemFontOfSize(18)
-        done.setTitle("☒",forState:.Normal);
-        btnColor(done)
-        self.addSubview(done)
-        
-        var btc = UIButton(frame: CGRectMake(shape["w"]!*0, shape["h"]!*3+4, shape["w"]! ,shape["h"]!))
-        btc.addTarget(self,action:"btnClear",forControlEvents:.TouchUpInside);
-        btc.titleLabel.font = UIFont.boldSystemFontOfSize(16)
-        btc.setTitle("C",forState:.Normal);
-        btnColor(btc)
-        self.addSubview(btc)
-        
-        var btp = UIButton(frame: CGRectMake(shape["w"]!*2+2, shape["h"]!*3+4, shape["w"]! ,shape["h"]!))
-        btp.addTarget(self,action:"btnPercent:",forControlEvents:.TouchUpInside);
-        btp.titleLabel.font = UIFont.boldSystemFontOfSize(18)
-        btp.setTitle(".",forState:.Normal);
-        btnColor(btp)
-        self.addSubview(btp)
     }
+    
     
     func btnColor(button:UIButton){
         button.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
         button.setBackgroundImage(createImageWithColor(UIColor.whiteColor()), forState: UIControlState.Normal)
         button.setBackgroundImage(createImageWithColor(UIColor.grayColor()), forState: UIControlState.Highlighted)
-    }
-    
-    func numBtn(number:String)->UIButton {
-        var numInt = number.toInt()!
-        var button = UIButton()
-        var line = (numInt-1)/3
-        var row = (numInt-3*line) - 1
-        var x  = Int(shape["w"]!) * row + row
-        var y  = Int(shape["h"]!) * line + line + 1
-        switch numInt {
-        case 1...9:
-            button = UIButton(frame: CGRectMake(CGFloat(x), CGFloat(y), shape["w"]! ,shape["h"]!))
-        default:button = UIButton(frame: CGRectMake(shape["w"]!*1+1, shape["h"]!*3+4, shape["w"]! ,shape["h"]!))
-        }
-        button.addTarget(self,action:"btnNumber:",forControlEvents:.TouchUpInside);
-        button.titleLabel.font = UIFont.boldSystemFontOfSize(18)
-        button.setTitle(number,forState:.Normal);
-        btnColor(button)
-        return button
     }
     
     func shine() {
@@ -228,7 +210,7 @@ class ZYKeyboard : UIView {
         self.txtResult?.alpha = 1
     }
     
-    func done( sender: UIButton ){
-        delegate?.done()
+    func closekeyboard( sender: UIButton ){
+        delegate?.closekeyboard()
     }
 }

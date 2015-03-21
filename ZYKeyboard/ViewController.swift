@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol AddPayDelegate {
+    func addfinish()
+}
+
 class ViewController: UIViewController,ZYKeyboardDelegate {
     var money =  UITextField(frame: CGRectMake(50, 100, 350, 100))
     
@@ -17,7 +21,7 @@ class ViewController: UIViewController,ZYKeyboardDelegate {
         self.view.backgroundColor = UIColor.whiteColor()
         money.attributedPlaceholder = NSAttributedString(  string: "0.00",attributes: [NSForegroundColorAttributeName: UIColor(hex:0x5eb420,alpha:1)])
         money.textColor = UIColor(hex:0x5eb420,alpha:1)
-        var zykeyboard = ZYKeyboard(frame: CGRectMake(0,  480 - 44 - 216, 320, 216))
+        var zykeyboard = ZYKeyboard(frame: CGRectMake(0,  MYHEIGHT() - 44 - 216, 320, 246))
         money.inputView = zykeyboard
         zykeyboard.delegate = self
         zykeyboard.txtResult = money
@@ -28,6 +32,9 @@ class ViewController: UIViewController,ZYKeyboardDelegate {
     
     func done(){
         money .resignFirstResponder()
+    }
+    
+    func closekeyboard(){
     }
     
     override func didReceiveMemoryWarning() {

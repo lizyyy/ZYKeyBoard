@@ -19,3 +19,13 @@ func createImageWithColor(color:UIColor) ->UIImage {
     UIGraphicsEndImageContext()
     return theImage
 }
+
+
+
+func MYWIDTH()->CGFloat{
+    return UIScreen.mainScreen().bounds.width
+}
+
+func MYHEIGHT()->CGFloat{
+    return UIScreen.mainScreen().bounds.height
+}
