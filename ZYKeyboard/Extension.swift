@@ -29,3 +29,9 @@ func MYWIDTH()->CGFloat{
 func MYHEIGHT()->CGFloat{
     return UIScreen.mainScreen().bounds.height
 }
+
+
+let TICK  = NSDate().timeIntervalSince1970
+let TOCK: () =  println(NSDate().timeIntervalSince1970 - TICK)
+
+ 
