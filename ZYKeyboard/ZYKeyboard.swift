@@ -187,50 +187,56 @@ class ZYKeyboard : UIView {
         var borderW = 1
         var btnW =  ( Float(w) - Float( borderW * 5) ) / Float(4)
         var btnH =  ( Float(h) - Float( borderH * 5) ) / Float(4)
-  
+        
         var queue = dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)
-        dispatch_apply(17, queue, {(i:Int) -> Void in
-            var line  = ( i - 1 ) % 4
-            var row = ( i - 1 ) / 4
-            var xx = Double(btnW) * Double(line) + Double(borderW) * ( Double(line) + 1)
-            var yy = Double(btnH) * Double(row) + Double(borderH) * ( Double(row) + 1 )
-            var btn = UIButton( frame: CGRectMake(CGFloat(xx), CGFloat(yy) , CGFloat(btnW), CGFloat(btnH)) )
-            btn.titleLabel?.font = UIFont.systemFontOfSize(20)
-            btn.setTitle("\(xx),\(yy)",forState:.Normal);
-            switch i {
-            case 4:
-                btn.setTitle("☒",forState:.Normal)
-                btn.addTarget(self,action:"closekeyboard:",forControlEvents:.TouchUpInside)
-            case 8:
-                btn.setTitle("+",forState:.Normal)
-                btn.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside)
-            case 12:
-                btn.setTitle("-",forState:.Normal)
-                btn.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside)
-            case 16:
-                btn.setTitle("=",forState:.Normal)
-                btn.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside)
-            case 13:
-                btn.setTitle("C",forState:.Normal)
-                btn.addTarget(self,action:"btnClear",forControlEvents:.TouchUpInside)
-            case 14:
-                btn.setTitle("0",forState:.Normal)
-                btn.addTarget(self,action:"btnNumber:",forControlEvents:.TouchUpInside)
-            case 15:
-                btn.setTitle(".",forState:.Normal)
-                btn.addTarget(self,action:"btnPercent:",forControlEvents:.TouchUpInside)
-            default:
-                btn.setTitle(String((row)*3+line+1),forState:.Normal)
-                btn.addTarget(self,action:"btnNumber:",forControlEvents:.TouchUpInside)
-            }
-            self.btnColor(btn)
-            self.addSubview(btn)
-         })
+        dispatch_async(queue, {
+            dispatch_apply(17, queue, {(i:Int) -> Void in
+                var line  = ( i - 1 ) % 4
+                var row = ( i - 1 ) / 4
+                var xx = Double(btnW) * Double(line) + Double(borderW) * ( Double(line) + 1)
+                var yy = Double(btnH) * Double(row) + Double(borderH) * ( Double(row) + 1 )
+                var btn = UIButton( frame: CGRectMake(CGFloat(xx), CGFloat(yy) , CGFloat(btnW), CGFloat(btnH)) )
+                btn.titleLabel?.font = UIFont.systemFontOfSize(20)
+                btn.setTitle("\(xx),\(yy)",forState:.Normal);
+                switch i {
+                case 4:
+                    btn.setTitle("☒",forState:.Normal)
+                    btn.addTarget(self,action:"closekeyboard:",forControlEvents:.TouchUpInside)
+                case 8:
+                    btn.setTitle("+",forState:.Normal)
+                    btn.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside)
+                case 12:
+                    btn.setTitle("-",forState:.Normal)
+                    btn.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside)
+                case 16:
+                    btn.setTitle("=",forState:.Normal)
+                    btn.addTarget(self,action:"btnOperand:",forControlEvents:.TouchUpInside)
+                case 13:
+                    btn.setTitle("C",forState:.Normal)
+                    btn.addTarget(self,action:"btnClear",forControlEvents:.TouchUpInside)
+                case 14:
+                    btn.setTitle("0",forState:.Normal)
+                    btn.addTarget(self,action:"btnNumber:",forControlEvents:.TouchUpInside)
+                case 15:
+                    btn.setTitle(".",forState:.Normal)
+                    btn.addTarget(self,action:"btnPercent:",forControlEvents:.TouchUpInside)
+                default:
+                    btn.setTitle(String((row)*3+line+1),forState:.Normal)
+                    btn.addTarget(self,action:"btnNumber:",forControlEvents:.TouchUpInside)
+                }
+                
+                btn.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
+                btn.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Highlighted)
+                btn.backgroundColor = UIColor.whiteColor()
+                self.addSubview(btn)
+             })
+        }) 
         TOCK
     }
     
     
     func btnColor(button:UIButton){
+        button.backgroundColor = UIColor.redColor()
         button.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
         button.setBackgroundImage(createImageWithColor(UIColor.whiteColor()), forState: UIControlState.Normal)
